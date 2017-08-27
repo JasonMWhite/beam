@@ -26,8 +26,6 @@ coder_impl.pxd file for type hints.
 
 For internal use only; no backwards-compatibility guarantees.
 """
-from types import NoneType
-
 from apache_beam.coders import observable
 from apache_beam.utils.timestamp import Timestamp
 from apache_beam.utils.timestamp import MAX_TIMESTAMP
@@ -44,10 +42,10 @@ try:
   globals()['create_OutputStream'] = create_OutputStream
   globals()['ByteCountingOutputStream'] = ByteCountingOutputStream
 except ImportError:
-  from slow_stream import InputStream as create_InputStream
-  from slow_stream import OutputStream as create_OutputStream
-  from slow_stream import ByteCountingOutputStream
-  from slow_stream import get_varint_size
+  from apache_beam.coders.slow_stream import InputStream as create_InputStream
+  from apache_beam.coders.slow_stream import OutputStream as create_OutputStream
+  from apache_beam.coders.slow_stream import ByteCountingOutputStream
+  from apache_beam.coders.slow_stream import get_varint_size
 # pylint: enable=wrong-import-order, wrong-import-position, ungrouped-imports
 
 
@@ -262,7 +260,7 @@ class FastPrimitivesCoderImpl(StreamCoderImpl):
 
   def encode_to_stream(self, value, stream, nested):
     t = type(value)
-    if t is NoneType:
+    if t is type(None):
       stream.write_byte(NONE_TYPE)
     elif t is int:
       stream.write_byte(INT_TYPE)

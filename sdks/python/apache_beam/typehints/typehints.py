@@ -316,7 +316,7 @@ def validate_composite_type_param(type_param, error_msg_prefix):
   """
   # Must either be a TypeConstraint instance or a basic Python type.
   is_not_type_constraint = (
-      not isinstance(type_param, (type, types.ClassType, TypeConstraint))
+      not isinstance(type_param, (type, TypeConstraint))
       and type_param is not None)
   is_forbidden_type = (isinstance(type_param, type) and
                        type_param in DISALLOWED_PRIMITIVE_TYPES)

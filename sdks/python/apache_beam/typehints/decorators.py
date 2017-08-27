@@ -262,7 +262,7 @@ def getcallargs_forhints(func, *typeargs, **typekwargs):
   packed_typeargs += list(typeargs[len(packed_typeargs):])
   try:
     callargs = inspect.getcallargs(func, *packed_typeargs, **typekwargs)
-  except TypeError, e:
+  except TypeError as e:
     raise TypeCheckError(e)
   if argspec.defaults:
     # Declare any default arguments to be Any.

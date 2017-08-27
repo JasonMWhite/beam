@@ -21,7 +21,7 @@ Only those coders listed in __all__ are part of the public API of this module.
 """
 
 import base64
-import cPickle as pickle
+from six.moves import cPickle as pickle
 import google.protobuf
 
 from apache_beam.coders import coder_impl
@@ -33,7 +33,7 @@ from apache_beam.utils import proto_utils
 try:
   from stream import get_varint_size
 except ImportError:
-  from slow_stream import get_varint_size
+  from apache_beam.coders.slow_stream import get_varint_size
 # pylint: enable=wrong-import-order, wrong-import-position, ungrouped-imports
 
 
